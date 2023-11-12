@@ -1,0 +1,92 @@
+.a1 {
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items:flex-start;
+    margin: 10px 20px;
+    min-height: 150px;
+}
+
+.betw {
+    display: flex;
+    justify-content: space-between;
+}
+
+.betwV {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.notes {
+    min-width: 150px;
+    min-height: 100px;
+}
+
+.note {
+    background: #add8e6;
+    margin: 2px;
+    border: 1px dotted;
+    border-radius: 5px;
+}
+
+.cardStack {
+    width: 100px;
+    height: 150px;
+    margin: 15px;
+}
+
+.card {
+    min-width: 100px;
+    max-width: 130px;
+    min-height: 150px;
+    margin: 5px;
+    padding: 5px;
+    background: #add8e6;
+    border: 2px solid;
+    border-radius: 6px;
+    
+    animation: show 600ms forwards;
+    opacity: 0;
+
+    .card {
+        background: #a1e2d7;
+        margin: auto;
+    }
+}
+
+.green {
+    background: #a8e2a1;
+}
+
+
+p {
+    margin: 1px;
+}
+
+.border {
+    border-radius: 6px;
+    border: 3px solid;
+    padding: 10px;
+}
+
+.graben {
+    cursor: grab;
+}
+
+* {
+    animation: show 100ms forwards;
+    opacity: 0;
+}
+
+
+@keyframes show {
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+.bold {
+    font-weight: bold;
+}

@@ -2,7 +2,7 @@ import {React, useEffect, useState} from "react";
 import {CardStack, randSeed, randBenefit} from './cardStack'
 import {Card, ShopCard} from './card'
 
-function Shop({step, coinsPair, handPair, kn}){
+function Shop({step, coinsPair, handPair, kn, dcPair}){
 
     const [shopCards, setShopCards] = useState([randBenefit(), randSeed()])
 
@@ -23,8 +23,29 @@ function Shop({step, coinsPair, handPair, kn}){
         setAvailable(false);
     }
 
+    function dropHandler(e){
+        const [dc, setDc] = dcPair
+        const [hand, setHand] = handPair
+        const [coins, setCoins] = coinsPair
+
+        if(dc.type == undefined || !Object.keys(hand).includes(dc.type + 's')){
+            setDc(undefined)
+            return;
+        }
+
+        setHand({
+            ...hand,
+            [dc.type+'s']: hand[dc.type+'s'].filter((item) => {
+                return item !== dc
+            })
+        })
+        setCoins(prev => prev + 1)
+    }
+
     return (
-        <div className="border betwV">
+        <div className="border betwV"
+            onDragOver={e => e.preventDefault()}
+            onDrop={e => dropHandler(e)}>
             <h1>Магазин</h1>
             <div className="a1">
                 <ShopCard 

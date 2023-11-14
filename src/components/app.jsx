@@ -86,7 +86,8 @@ function App(){
                     step={step} 
                     coinsPair={...[coins, (anew) => setCoins(anew)]} 
                     handPair={...[hand, (anew) => setHand(anew)]}
-                    kn={knownNotes}/>
+                    kn={knownNotes}
+                    dcPair={...[draggedCard, (anew) => setDraggedCard(anew)]}/>
             </div>
             <Player 
                 handPair={...[hand, (anew) => setHand(anew)]} 

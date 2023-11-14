@@ -527,7 +527,8 @@ function FieldCard({data, draggedCardPair, handPair, knPair, timeProps}){
         }
     }
 
-    function benefitDropHandler(e){        
+    function benefitDropHandler(e){ 
+        if(draggedCard.usage == 'use') return;       
         if(draggedCard.usage != 'field' && draggedCard.usage == 'plant' && !datum.seed) return;
 
         delta = 0

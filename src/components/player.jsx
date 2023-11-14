@@ -37,6 +37,8 @@ function Player({handPair, draggedCardPair, kn, sizePair, eventPair, step, coins
                                         handPair={handPair}
                                         sizePair={sizePair} 
                                         eventPair={eventPair}
+                                        draggedCardPair={draggedCardPair}
+                                        isDraggable={true} // for selling only
                                         step={step}/>
                         }
                         else{

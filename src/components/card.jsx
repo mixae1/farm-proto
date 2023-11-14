@@ -20,8 +20,8 @@ function valMap(key, val){
         'time',
         'usage',
         'reqs',
-        //'currentGrowth',
-        //'reqGrowth',
+        'currentGrowth',
+        'reqGrowth',
     ]
     
     mapping1 = {
@@ -230,7 +230,17 @@ function Card({data, title, draggedCardPair, isDraggable, kn, handPair, sizePair
     }
 
     return (
-        <div className={"card" + (isDragum ? " graben" : "") + (data.type == 'plant' ? " green" : "")}
+        <div className={"card" + 
+                (isDragum ? " graben" : "") + 
+                (data.type == 'plant' ? " green" : "") +
+                (data.type == 'seed' && data.aboutDie ? " red" : "") + 
+                (data.type == 'order' ? " blue" : "")}
+            style={{
+                backgroundColor: 
+                    (data.type == 'seed' && data.currentGrowth >= 0) ?
+                    `hsl(135, ${data.currentGrowth / data.reqGrowth * 100}%, 51%)`:
+                    ''
+            }}
             
             draggable={isDragum} 
             onDragStart={(e) => dragStartHandler(e, data)}
@@ -466,15 +476,24 @@ function FieldCard({data, draggedCardPair, handPair, knPair, timeProps}){
     useEffect(() => {
         if(datum.seed){
             delta = 0
+            seed = datum.seed
             if(!(datum.seed.reqs.includes(4) || datum.seed.reqs.includes(5))) delta = 0.5
             if(datum.seed.reqs.includes(4) && step % 2 == 0 && event.id != 0) delta = 1
             if(datum.seed.reqs.includes(5) && (step % 2 == 1 || event.id == 0)) delta = 1
+            seed.currentGrowth += delta
+
+            if(seed.currentGrowth < 0){
+                if(seed.aboutDie){
+                    // delete
+                    seed = undefined
+                }
+                else{
+                    seed.aboutDie = true
+                }
+            }
             setDatum({
                 ...datum,
-                seed: {
-                    ...datum.seed,
-                    currentGrowth: datum.seed.currentGrowth + delta
-                }
+                seed: seed
             })
         }
     }, [step])
@@ -495,6 +514,26 @@ function FieldCard({data, draggedCardPair, handPair, knPair, timeProps}){
                 seed: undefined,
             })
         }
+        if(datum.seed != undefined){
+            if(datum.seed.currentGrowth < 0 && !datum.seed.aboutDie){
+                setDatum({
+                    ...datum,
+                    seed: {
+                        ...datum.seed,
+                        aboutDie: true
+                    },
+                })
+            }
+            if(datum.seed.currentGrowth >= 0 && datum.seed.aboutDie){
+                setDatum({
+                    ...datum,
+                    seed: {
+                        ...datum.seed,
+                        aboutDie: false
+                    },
+                })
+            }
+        }
     }, [datum])
 
     function seedDropHandler(e){
@@ -514,7 +553,7 @@ function FieldCard({data, draggedCardPair, handPair, knPair, timeProps}){
             delta += draggedCard.reqs.includes(3) && !datum.cursed
             delta -= (draggedCard.reqs.includes(2) && !datum.cursed) ||
                     (draggedCard.reqs.includes(3) && datum.cursed)
-                    
+
             if(draggedCard.reqs.includes(2) && !datum.cursed) newkn.push(2)
             if(draggedCard.reqs.includes(3) && datum.cursed) newkn.push(3)
 
@@ -723,16 +762,16 @@ function FieldCard({data, draggedCardPair, handPair, knPair, timeProps}){
     }
 
     return (
-        <div className="card" 
+        <div className="card dirt" 
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => dropHandler(e)}>
             <h3>Клетка грядки</h3>
             {Object.keys(datum).map((key) => {
                 if(key != 'seed')
                     return valMap(key, datum[key] ? 1 : 0)
-                if(datum[key] != undefined)
+                if(datum.seed != undefined)
                     return <Card 
-                                data={datum[key]} 
+                                data={datum.seed} 
                                 title={"Семя"} 
                                 kn={kn}/>
             })}

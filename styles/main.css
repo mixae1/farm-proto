@@ -42,7 +42,7 @@
     min-height: 150px;
     margin: 5px;
     padding: 5px;
-    background: #add8e6;
+    background: rgb(173, 215, 230);
     border: 2px solid;
     border-radius: 6px;
     
@@ -50,15 +50,26 @@
     opacity: 0;
 
     .card {
-        background: #a1e2d7;
+        background: hsl(134, 10%, 51%);
         margin: auto;
     }
 }
 
 .green {
-    background: #a8e2a1;
+    background: #a8e2a1 !important;
 }
 
+.red {
+    background: rgb(207, 137, 109) !important;
+}
+
+.blue {
+    background: #0d529277 !important;
+}
+
+.dirt {
+    background: rgb(187, 143, 0) !important;
+}
 
 p {
     margin: 1px;

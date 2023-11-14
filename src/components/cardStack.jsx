@@ -14,7 +14,8 @@ function randSeed(i1){
         ...seed, 
         guid: Math.random(),
         currentGrowth: 0,
-        reqGrowth: seed.reqs.length * 2,
+        reqGrowth: seed.reqs.length * 2 + 1,
+        aboutDie: false,
     }
 }
 

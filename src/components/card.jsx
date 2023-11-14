@@ -500,12 +500,23 @@ function FieldCard({data, draggedCardPair, handPair, knPair, timeProps}){
     function seedDropHandler(e){
         //e.preventDefault() 
         if(datum.seed == undefined){
+            newkn = []
             delta = 0
             delta += draggedCard.reqs.includes(0) && datum.wet
             delta += draggedCard.reqs.includes(1) && !datum.wet
+            delta -= (draggedCard.reqs.includes(0) && !datum.wet) ||
+                    (draggedCard.reqs.includes(1) && datum.wet)
+
+            if(draggedCard.reqs.includes(0) && !datum.wet) newkn.push(0)
+            if(draggedCard.reqs.includes(1) && datum.wet) newkn.push(1)
 
             delta += draggedCard.reqs.includes(2) && datum.cursed
             delta += draggedCard.reqs.includes(3) && !datum.cursed
+            delta -= (draggedCard.reqs.includes(2) && !datum.cursed) ||
+                    (draggedCard.reqs.includes(3) && datum.cursed)
+                    
+            if(draggedCard.reqs.includes(2) && !datum.cursed) newkn.push(2)
+            if(draggedCard.reqs.includes(3) && datum.cursed) newkn.push(3)
 
             delta += draggedCard.reqs.includes(4) && step % 2 == 0 && event.id != 0
             delta += draggedCard.reqs.includes(5) && (step % 2 == 1 || event.id == 0)
@@ -523,6 +534,10 @@ function FieldCard({data, draggedCardPair, handPair, knPair, timeProps}){
                 seeds: hand.seeds.filter((item) => {
                     return item !== draggedCard
                 })
+            })
+            setKN({
+                ...kn,
+                [draggedCard.id]: [...kn[draggedCard.id], ...newkn]
             })
         }
     }

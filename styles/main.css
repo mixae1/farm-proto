@@ -32,8 +32,8 @@
 
 .cardStack {
     width: 100px;
-    height: 150px;
-    margin: 15px;
+    height: 70px;
+    margin: 10px;
 }
 
 .card {
@@ -100,4 +100,8 @@ p {
 
 .bold {
     font-weight: bold;
+}
+
+* {
+    transition: 0.5s;
 }

@@ -62,35 +62,4 @@ function randBenefit(){
     }
 }
 
-
-function cardsAt(i){
-    return cards[names[i]]
-}
-
-function CardStack({step, handPair}){
-
-    const [available, setAvailable] = useState(true);
-    const [hand, setHand] = handPair;
-
-    useEffect(() => {
-        setAvailable(true);
-    }, [step])
-
-    function randCard(){
-        r = Math.random()
-        card = r > 0.7 ? randSeed() : randBenefit();
-        i1 = r > 0.7 ? 0 : 1;
-
-        setHand({
-            ...hand,
-            ...{ [names[i1]]: [ ...hand[names[i1]], card] }
-        })      
-    }
-    
-
-    return (
-        <button className='cardStack' onClick={() => {randCard(); setAvailable(false);}} disabled={!available}>Колода</button>
-    );
-}
-
-export {CardStack, randSeed, randEvent, randOrder, randBenefit}
+export {randSeed, randEvent, randOrder, randBenefit}

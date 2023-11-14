@@ -68,6 +68,9 @@ function App(){
 
     }, [step])
 
+    function stepHandler(){
+        () => setStep(p => p + 1)
+    }
 
     return(
         <main className='main'>
@@ -104,7 +107,9 @@ function App(){
                 knPair={...[knownNotes, (anew) => setKnownNotes(anew)]}
                 timeProps={...[event, step]}
                 sizePair={...[size, (anew) => setSize(anew)]}/>
-            <button onClick={() => setStep(p => p + 1)}>Закончить ход</button>
+            <button 
+                onClick={() => setStep(p => p + 1)}
+                disabled={hand.seeds.length + hand.plants.length + hand.benefits.length > 5}>Закончить ход</button>
         </main>    
     )
 

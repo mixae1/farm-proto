@@ -54,7 +54,7 @@ function App(){
     useEffect(() => {
         // logic...
 
-        if(step % 4 == 0){
+        if((step > 9 && step % 2 == 0) || step == 0 || step == 4 || step == 7){
             if(hand.orders.length >= 3)
                 setIsLost(true)
 

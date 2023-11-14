@@ -1,10 +1,13 @@
 {
-  "name": "FarmProto",
+  "name": "farm-proto",
   "version": "1.0.0",
+  "homepage": "http://mixae1.github.io/farm-proto",
   "description": "Farm prototype page",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html --dist-dir docs --no-source-maps --public-url ./"
+    "build": "parcel build index.html --dist-dir docs --no-source-maps --public-url ./",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "author": "mixae1",
   "license": "MIT",
@@ -12,6 +15,7 @@
     "@babel/core": "^7.19.1",
     "@parcel/babel-preset-env": "^2.7.0",
     "buffer": "^6.0.3",
+    "gh-pages": "^6.0.0",
     "parcel": "^2.7.0",
     "process": "^0.11.10"
   },
